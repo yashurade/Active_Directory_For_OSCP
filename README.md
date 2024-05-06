@@ -46,7 +46,7 @@ Enumeration is the process of gathering information about an Active Directory (A
 
   Example command:
   ```bash
-  ldapsearch -H ldap://ip -x -s  base namingcontexts ```
+  ldapsearch -H ldap://ip -x -s  base namingcontexts ```bash
 
 ## Exploitation
 
