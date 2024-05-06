@@ -26,6 +26,27 @@ Active Directory is a centralized database used for managing users, passwords, c
 ## Enumeration
 
 Enumeration is the process of gathering information about an Active Directory environment. This phase is crucial for understanding the network topology, identifying potential attack vectors, and planning the next steps of the engagement. We'll explore tools and techniques for enumerating domains, domain controllers, users, groups, and computers.
+Enumeration is the process of gathering information about an Active Directory (AD) environment, and it's a crucial step in penetration testing. Here are some steps and tools you can use for effective enumeration:
+
+  # 1. Identifying Active Directory Machines
+
+    - **Nmap Scans**: Use Nmap to scan the network and identify machines running Active Directory services. Look for open ports such as 389 (LDAP), 445 (SMB), and 135 (RPC) which are commonly associated with AD.
+
+  # 2. Enumerating Active Directory
+
+  Once you've identified AD machines, you can use various tools to enumerate AD objects and gather valuable information:
+
+  - **smbmap**: Use smbmap to enumerate shares, users, and groups on SMB-enabled machines. This can provide insights into the structure and permissions of the AD environment.
+
+  - **smbclient**: smbclient is another tool for interacting with SMB shares on remote machines. You can use it to list shares, download/upload files, and gather information about the system.
+
+  - **rpcclient(enumdomusers)**: rpcclient can be used to enumerate domain users by querying the domain controller. Use the `enumdomusers` command to list all users in the domain.  
+
+  - **ldapsearch**: ldapsearch is a command-line tool for querying LDAP servers. Use it to search for naming contexts and retrieve information about the LDAP directory structure.
+
+  Example command:
+  ```bash
+  ldapsearch -H ldap://ip -x -s  base namingcontexts
 
 ## Exploitation
 
