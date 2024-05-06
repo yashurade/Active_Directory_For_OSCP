@@ -30,7 +30,71 @@ Enumeration is the process of gathering information about an Active Directory (A
 
   # 1. Identifying Active Directory Machines
 
-    - **Nmap Scans**: Use Nmap to scan the network and identify machines running Active Directory services. Look for open ports such as 389 (LDAP), 445 (SMB), and 135 (RPC) which are commonly associated with AD.
+    - **Nmap Scans**: Use Nmap to scan the network and identify machines running Active Directory services. Look for open ports such as 389 (LDAP), 88 (kerberos),445 (SMB), 5985 & 5986 (winrm http) and 135 (RPC). The domain: htb.local point towards AD.
+
+      Example command:
+      ```bash
+        ┌──(kali㉿kali)-[~/HTB]
+          └─$ cat nmap.txt 
+          # Nmap 7.94SVN scan initiated Sun May  5 19:57:18 2024 as: nmap -A -p- -T4 -oN nmap.txt 10.10.10.161
+          Nmap scan report for 10.10.10.161
+          Host is up (0.087s latency).
+          Not shown: 65513 closed tcp ports (conn-refused)
+          PORT      STATE SERVICE      VERSION
+          88/tcp    open  kerberos-sec Microsoft Windows Kerberos (server time: 2024-05-06 00:06:08Z)
+          135/tcp   open  msrpc        Microsoft Windows RPC
+          139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+          389/tcp   open  ldap         Microsoft Windows Active Directory LDAP (Domain: htb.local, Site: Default-First-Site-Name)
+          445/tcp   open  microsoft-ds Windows Server 2016 Standard 14393 microsoft-ds (workgroup: HTB)
+          464/tcp   open  kpasswd5?
+          593/tcp   open  ncacn_http   Microsoft Windows RPC over HTTP 1.0
+          636/tcp   open  tcpwrapped
+          3268/tcp  open  ldap         Microsoft Windows Active Directory LDAP (Domain: htb.local, Site: Default-First-Site-Name)
+          3269/tcp  open  tcpwrapped
+          5985/tcp  open  http         Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+          |_http-server-header: Microsoft-HTTPAPI/2.0
+          |_http-title: Not Found
+          9389/tcp  open  mc-nmf       .NET Message Framing
+          47001/tcp open  http         Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+          |_http-title: Not Found
+          |_http-server-header: Microsoft-HTTPAPI/2.0
+          49664/tcp open  msrpc        Microsoft Windows RPC
+          49665/tcp open  msrpc        Microsoft Windows RPC
+          49666/tcp open  msrpc        Microsoft Windows RPC
+          49668/tcp open  msrpc        Microsoft Windows RPC
+          49671/tcp open  msrpc        Microsoft Windows RPC
+          49676/tcp open  ncacn_http   Microsoft Windows RPC over HTTP 1.0
+          49677/tcp open  msrpc        Microsoft Windows RPC
+          49682/tcp open  msrpc        Microsoft Windows RPC
+          49701/tcp open  msrpc        Microsoft Windows RPC
+          Service Info: Host: FOREST; OS: Windows; CPE: cpe:/o:microsoft:windows
+          
+          Host script results:
+          | smb2-time: 
+          |   date: 2024-05-06T00:07:05
+          |_  start_date: 2024-05-06T00:02:42
+          | smb-security-mode: 
+          |   account_used: guest
+          |   authentication_level: user
+          |   challenge_response: supported
+          |_  message_signing: required
+          | smb-os-discovery: 
+          |   OS: Windows Server 2016 Standard 14393 (Windows Server 2016 Standard 6.3)
+          |   Computer name: FOREST
+          |   NetBIOS computer name: FOREST\x00
+          |   Domain name: htb.local
+          |   Forest name: htb.local
+          |   FQDN: FOREST.htb.local
+          |_  System time: 2024-05-05T17:07:03-07:00
+          | smb2-security-mode: 
+          |   3:1:1: 
+          |_    Message signing enabled and required
+          |_clock-skew: mean: 2h26m47s, deviation: 4h02m31s, median: 6m46s
+          
+          Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+          # Nmap done at Sun May  5 20:00:26 2024 -- 1 IP address (1 host up) scanned in 187.96 seconds
+
+      ```
 
   # 2. Enumerating Active Directory
 
@@ -48,6 +112,10 @@ Enumeration is the process of gathering information about an Active Directory (A
   ```bash
   ldapsearch -H ldap://ip -x -s  base namingcontexts
   ```
+
+
+#################STill in work
+
 
 ## Exploitation
 
